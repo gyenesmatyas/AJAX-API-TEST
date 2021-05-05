@@ -2,27 +2,19 @@
 
 // lange versie
 $(document).ready(function(){
-    $("#form").keyup(function(){
-        // als er geen waarde is in de input voeg attr disable toe
-        if (!$('#input').val()) {
-            $('#btnSubmit').attr('disabled', 'true');
-          }
-        // anders verwijder attr disable
-        else{
-            $('#btnSubmit').removeAttr('disabled');
-        }
-
-    });
-    // als er op de knop wordt gedrukt zet data in array en plaats in output
-    $("#btnSubmit").click(function(){
-        $("#output").html('');
-        var arraySerialize = $("#form").serializeArray();
-        $.each(arraySerialize, function(index,field){
-            $("#output").append(field.value);
+    $('#btnFetch').click(function fetch(){
+        $.ajax({
+            url:"https://api.coindesk.com/v1/bpi/currentprice.json",
+            tyope:"GET",
+            dataType:"JSON",
+            data: JSON.stringify({ }),
+            success:function(data){    
+                $(".messages").html("");            
+                $(".messages").append("<li>De prijs in USD: " + data['bpi']['USD']['rate'] + "</li>");
+                $(".messages").append("<li>De prijs in GBP: " + data['bpi']['GBP']['rate'] + "</li>");
+                $(".messages").append("<li>De prijs in EUR: " + data['bpi']['EUR']['rate'] + "</li>");
+                $(".messages").append("<li>Deze prijzen zijn laatst geupdate om: " + data['time']['updated']+ "</li>");
+            }
         });
-        $('#input').val('');
     });
-      
-
 });
-

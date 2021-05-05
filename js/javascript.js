@@ -3,6 +3,7 @@
 // lange versie
 $(document).ready(function(){
     $('#btnFetch').click(function fetch(){
+        $('#loader').show();
         $.ajax({
             url:"https://api.coindesk.com/v1/bpi/currentprice.json",
             tyope:"GET",
@@ -16,5 +17,6 @@ $(document).ready(function(){
                 $(".messages").append("<li>Deze prijzen zijn laatst geupdate om: " + data['time']['updated']+ "</li>");
             }
         });
+        $('#loader').hide();
     });
 });

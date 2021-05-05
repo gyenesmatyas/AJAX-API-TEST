@@ -2,5 +2,6 @@ body {
   color: white;
   background-color: green; }
 
-
-  
+#loader {
+  margin-top: 10px;
+  display: none; }
